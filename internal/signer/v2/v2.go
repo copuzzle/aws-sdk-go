@@ -192,7 +192,8 @@ func (v2 *signer) buildTime() {
 func (v2 *signer) buildCanonicalHeaders() {
 	var headers []string
 	for k := range v2.Request.Header {
-		if strings.HasPrefix(strings.ToLower(http.CanonicalHeaderKey(k)), "x-amz-"){
+		lk := strings.ToLower(http.CanonicalHeaderKey(k))
+		if strings.HasPrefix(lk, "x-amz-") || strings.HasPrefix(lk, "x-kss-"){
 			headers = append(headers, k)
 		}
 	}
